@@ -8,8 +8,9 @@ A single source of information and tapes/card desks for use with the VCD and/or 
 Comprehesive information about the IBM 1401 can be found at https://ibm-1401.info/
 
 
-For VDC see https://https://rolffson.de/
+For VDC see https://https://rolffson.de/<br>
 
 For SIMH see [https://github.com/simh/simh,](https://github.com/open-simh/simh) 
+
 
 For ROPE (a java frontend with autocoder on the PC and a pathced SIMH to execute programs from the UI) see https://github.com/lucaseverini/ROPE
