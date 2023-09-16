@@ -54,9 +54,9 @@
                H
      *
      DSKADD    DCW  00000000
-     GRPMRK    DC   @}@
+     GRPMRK    DC   @g@
      SECT1     DA   1X200
-     GRPWM     DCW  @}@
+     GRPWM     DCW  @g@
      STEP      DCW  000
      INCR      DCW  010
      ENDADD    DCW  00999950
