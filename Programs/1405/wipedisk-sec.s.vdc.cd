@@ -12,7 +12,7 @@
                CS
                MCW  STRMSG,280
                W
-     *  WRITE EMPTY DATA TO A COMPLETE CYLINDER OR TRACK
+     *  WRITE EMPTY DATA TO A SECTOR
      NXTSEC    MCW  INCR,STEP       * RESET STEP
                SD   DSKADD-7        * MOVE ACCESS ARM
                A    INCR,STEP       * INCREMENT STEP
@@ -24,6 +24,7 @@
                C    DSKADD,ENDADD   * ALL SECTORS WRITTEN?
                BE   FINI            *  THEN GOTO FINI
                A    INCR,DSKADD     * ADD 1 SECTOR TO ADDR
+               BIN  ABORT,G         * ABORT IF SENSE SWITCH G IS FLIPPED
                B    NXTSEC          * WRITE NEXT SECTOR
      DSKERR    CS   332             * CLEAR PRINT AREA
                CS                   * CLEAR PRINT AREA
@@ -33,22 +34,32 @@
                BIN  WRLENR,W        * BRANCH TO WRONG-LENGTH RECORD
                BIN  RWPARC,V        * READ- OR WRITE PARITY CHECK...
      *
+               CS   299
                MCW  DERRN,280       * PRINT ACCESS INOPERABLE ERROR AND HALT
                W
                B    HALT
-     UNADCL    MCW  DERRX,280       * PRINT ERROR MSG AND HALT
+     UNADCL    CS   299
+               MCW  DERRX,280       * PRINT ERROR MSG AND HALT
                W
                B    HALT
-     WRLENR    MCW  DERRW,280       * PRINT ERROR MSG AND HALT
+     WRLENR    CS   299
+               MCW  DERRW,280       * PRINT ERROR MSG AND HALT
                W
                B    HALT
-     RWPARC    MCW  DERRV,280       * PRINT ERROR MSG AND HALT
+     RWPARC    CS   299
+               MCW  DERRV,280       * PRINT ERROR MSG AND HALT
                W
                B    HALT
-     FINI      MCW  FINMSG,280      * PRINT FINAL MSG AND HALT
+     FINI      CS   299
+               MCW  FINMSG,280      * PRINT FINAL MSG AND HALT
                W
                H    FINI
-     HALT      MCW  HLTMSG,280      * PRINT ERROR AND HALT
+     ABORT     CS   299
+               MCW  @ABORTED BY SENSE SWITCH G@,280
+               W
+               H    ABORT
+     HALT      CS   299
+               MCW  HLTMSG,280      * PRINT ERROR AND HALT
                W
                H    HALT
                H
@@ -66,6 +77,6 @@
      DERRX     DCW  @UNEQUAL-ADDRESS COMPARE@
      FINMSG    DCW  @FINISHED SUCESSFULLY@
      HLTMSG    DCW  @HALTED DUE TO ERROR@
-     STRMSG    DCW  @START@
+     STRMSG    DCW  @START. SENSE SWITCH G ABORTS.@
      *
                END  START
