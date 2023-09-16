@@ -1,0 +1,79 @@
+               JOB  WIPEDISK.S 04/17/23 14:51:22                           -5882
+               CTL  6611
+     ******************************************************************
+     *  WIPES THE 1405 DISK, FULL TRACKS. USE WITH CARE
+     ******************************************************************
+               ORG  400
+     *  SOME PRE-INITIALIZATION
+     START     CW   SECT1
+               CW   SECT2
+               CW   SECT3
+               CW   SECT4
+               CW   SECT5
+               SW   GRPMRK
+     *  PRITN START MSG
+               CS   332
+               CS
+               MCW  STRMSG,280
+               W
+     *  WRITE EMPTY DATA TO A COMPLETE CYLINDER OR TRACK
+     NXTTRK    MCW  INCR,STEP       * RESET STEP
+               SD   DSKADD-7        * MOVE ACCESS ARM
+               A    INCR,STEP       * INCREMENT STEP
+               WDT  DSKADD-7        * WRITE COMPLETE TRACK
+               BIN  DSKERR,Y        * CHECK FOR DISK ERROR
+               A    INCR,STEP       * INCREMENT STEP
+               WDC  DSKADD-7        * WRITE DISK CHECK
+               BIN  DSKERR,Y        * CHECK FOR DISK ERROR
+               C    DSKADD,ENDADD   * ALL TRACKS WRITTEN?
+               BE   FINI            *  THEN GOTO FINI
+               A    INCR,DSKADD     * ADD 5 SECTORS TO ADDR
+               B    NXTTRK          * WRITE NEXT TRACK
+     DSKERR    CS   332             * CLEAR PRINT AREA
+               CS                   * CLEAR PRINT AREA
+               MCW  STEP,280        * PRINT STEP NO
+               W
+               BIN  UNADCL,X        * BRANCH TO UNEQUAL-ADDR COMPARE
+               BIN  WRLENR,W        * BRANCH TO WRONG-LENGTH RECORD
+               BIN  RWPARC,V        * READ- OR WRITE PARITY CHECK...
+     *
+               MCW  DERRN,280       * PRINT ACCESS INOPERABLE ERROR AND HALT
+               W
+               B    HALT
+     UNADCL    MCW  DERRX,280       * PRINT ERROR MSG AND HALT
+               W
+               B    HALT
+     WRLENR    MCW  DERRW,280       * PRINT ERROR MSG AND HALT
+               W
+               B    HALT
+     RWPARC    MCW  DERRV,280       * PRINT ERROR MSG AND HALT
+               W
+               B    HALT
+     FINI      MCW  FINMSG,280      * PRINT FINAL MSG AND HALT
+               W
+               H    FINI
+     HALT      MCW  HLTMSG,280      * PRINT ERROR AND HALT
+               W
+               H    HALT
+               H
+     *
+     DSKADD    DCW  00000000
+     GRPMRK    DC   @g@
+     SECT1     DA   1X200
+     SECT2     DA   1X200
+     SECT3     DA   1X200
+     SECT4     DA   1X200
+     SECT5     DA   1X200
+     GRPWM     DCW  @g@
+     STEP      DCW  000
+     INCR      DCW  050
+     ENDADD    DCW  00999950
+     DERRN     DCW  @ACCESS INOPERABLE@
+     DERRV     DCW  @READ- OR WRITE PARITY CHECK OR READ-BACK CHECK ERR@
+     DERRW     DCW  @WRONG-LENGTH RECORD@
+     DERRX     DCW  @UNEQUAL-ADDRESS COMPARE@
+     FINMSG    DCW  @FINISHED SUCESSFULLY@
+     HLTMSG    DCW  @HALTED DUE TO ERROR@
+     STRMSG    DCW  @START@
+     *
+               END  START
