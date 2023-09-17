@@ -18,7 +18,7 @@ How to use autocoder.weaver.vdc.tp<br>
 - toggle mode switch, end on RUN<br>
 - click on TAPE LOAD<br>
 <br>
-After compilation,the left stacker holds the complied machine code. The right stacker holds the original source desk.<br>
+After compilation, the left stacker holds the complied machine code. The right stacker holds the original source desk.<br>
 <br>
 To run the compiled program:<br>
 - Put the machine code desk in the 1402<br>
