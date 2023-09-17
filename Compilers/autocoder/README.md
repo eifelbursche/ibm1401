@@ -18,5 +18,14 @@ How to use autocoder.weaver.vdc.tp<br>
 - toggle mode switch, end on RUN<br>
 - click on TAPE LOAD<br>
 <br>
+After compilation,the left stacker holds the complied machine code. The right stacker holds the original source desk.<br>
+<br>
+To run the compiled program:<br>
+- Put the machine code desk in the 1402<br>
+- press START RESET<br>
+- toggle mode switch, end on RUN<br>
+- on the 1402 press LOAD<br>
+<br>
+<br>
 For further information about autocoder on tape see https://bitsavers.org/pdf/ibm/1401/C24-3319-0_Autocoder_on_Tape_Laguage_Specifications_and_Operating_Procedures_Nov64.pdf<br>
 Other good readings for 1401 development: https://bitsavers.org/pdf/ibm/1401/A24-1403-5_1401_Reference_Apr62.pdf<br>
