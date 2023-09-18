@@ -9,7 +9,7 @@ The idea is to provide a single source of information and tapes/card desks for u
 # See also
 [Comprehensive information about the IBM 1401](https://ibm-1401.info/)
 
-[Virtual Data Center](https://https://rolffson.de/)
+[Virtual Data Center](https://rolffson.de/)
 
 [SIMH (a command line emulator for a lot of old computers, also the 1401](https://github.com/simh/simh)
 
