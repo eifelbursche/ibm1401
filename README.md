@@ -11,6 +11,6 @@ The idea is to provide a single source of information and tapes/card desks for u
 
 [Virtual Data Center](https://rolffson.de/)
 
-[SIMH (a command line emulator for a lot of old computers, also the 1401](https://github.com/simh/simh)
+[SIMH (a command line emulator for a lot of old computers, also the 1401)](https://github.com/simh/simh)
 
 [ROPE (a java frontend with autocoder on the PC and a patched SIMH to execute programs from the UI)](https://github.com/lucaseverini/ROPE)
