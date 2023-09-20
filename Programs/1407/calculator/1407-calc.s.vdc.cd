@@ -1,7 +1,7 @@
                JOB  1407-CALC.S 09/18/23 21:38:50                          -5930
                CTL  6611
      ******************************************************************
-     *  AUTOCODER PORT OF THE 1407 CALCULATOR
+     *  RE-WRITE OF THE 1407 CALCULATOR
      ******************************************************************
                ORG  87
      X1        DSA  0                  INDEX REGISTER 1
@@ -12,8 +12,8 @@
      *  SOME PRE-INITIALIZATION
      START     CS   KBIN&98
                LCA  GM,KBOUT&41
-               LCA  NUL,A
-               LCA  NUL,B
+               LCA  NUL,AF
+               LCA  NUL,BF
                LCA  TINPUT,KBOUT&40
                MCW  %T0,KBOUT,W
      WAIT      BIN  GO,Q     * GET USER ENTRY
@@ -29,7 +29,7 @@
      SKIP1     MA   SUBONE,X1
                BM   ERRQUI,X1,B
                BCE  SKIP1,KBIN&X1,
-     L2        MN   KBIN&X1,A&1&X2   * FIRST DIGIT FOUND, COPY ARG TO BUF
+     L2        MN   KBIN&X1,AF&1&X2   * FIRST DIGIT FOUND, COPY ARG TO BUF
                MA   SUBONE,X2
                MA   SUBONE,X1
                BM   ERRQUI,X1,B
@@ -45,7 +45,7 @@
      SKIP3     MA   SUBONE,X1
                BM   ERRQUI,X1,B
                BCE  SKIP3,KBIN&X1,
-     L6        MN   KBIN&X1,A-9&X2  * FIRST DIGIT FOUND, COPY ARG TO BUF
+     L6        MN   KBIN&X1,AF-9&X2  * FIRST DIGIT FOUND, COPY ARG TO BUF
                MA   SUBONE,X2
                MA   SUBONE,X1
                BM   L7,X1,B
@@ -57,25 +57,25 @@
                BCE  DOMULT,OP,*
                BCE  DODIV,OP,/
                B    ERRQUI
-     DOADD     A    A,B
+     DOADD     A    AF,BF
                B    DOPRT
-     DOSUB     S    B,A
-               LCA  A,B
+     DOSUB     S    BF,AF
+               LCA  AF,BF
                B    DOPRT
      DOMULT    ZA   NUL,MULTB
-               MCW  B,MULTB-11
-               M    A,MULTB
-               MCW  MULTB,B
+               MCW  BF,MULTB-11
+               M    AF,MULTB
+               MCW  MULTB,BF
                B    DOPRT
-     DODIV     ZA   A,MULTB
-               D    B,MULTB-9
-               MCW  MULTB-11,B
+     DODIV     ZA   AF,MULTB
+               D    BF,MULTB-9
+               MCW  MULTB-11,BF
                B    DOPRT
      *
      DOPRT     LCA  TRES,KBOUT&25
                SW   KBOUT&7,KBOUT&7
                LCA  GM,KBOUT&26
-               MCE  B,KBOUT&25
+               MCE  BF,KBOUT&25
                MCW  %T0,KBOUT,W
                B    START
      *
@@ -89,8 +89,8 @@
                H
      *
                LTORG601
-     A         DCW  0000000000
-     B         DCW  0000000000
+     AF        DCW  0000000000
+     BF        DCW  0000000000
      NUL       DCW  0000000000
                LTORG651
      MULTB     DCW  000000000000000000000
