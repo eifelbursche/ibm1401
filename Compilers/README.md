@@ -5,5 +5,5 @@ File naming conventions:
 NAME.FORMAT.TYPE
 <br>
 NAME = descriptive file name, can have . by its own<br>
-FORMAT = simh-old, simh-new, vdc
+FORMAT = simh-old, simh-new, vdc<br>
 TYPE = cd (card desk), tp (tape)
