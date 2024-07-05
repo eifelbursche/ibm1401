@@ -20,7 +20,7 @@
 - mount scrap tapes in drives 4, 5 and 6
 - put the source card desk in the 1402
 - at the 1401 press ```START RESET``` 
-- at the 1401 toggle mode switch, end on ```RUN``` 
+- at the 1401 toggle mode switch to ```RUN``` 
 - at the 1401 click on ```TAPE LOAD``` 
 
 
@@ -31,7 +31,7 @@ After compilation, the left stacker holds the complied machine code. The right s
 
 - Put the machine code desk in the 1402 <br> 
 - at the 1401 press ```START RESET```
-- at the 1401 toggle mode switch, end on ```RUN``` <br>
+- at the 1401 toggle mode switch to ```RUN``` <br>
 - at the 1402 click on ```LOAD``` <br>
 
 
