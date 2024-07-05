@@ -1,6 +1,6 @@
 # IBM1401 Documentation
 
-Tons of IOBM 1401 related documentation can be found at https://bitsavers.org/pdf/ibm/1401/
+Tons of IBM 1401 related documentation can be found at https://bitsavers.org/pdf/ibm/1401/
 
 # For starters I'd sugget
 
